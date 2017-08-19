@@ -102,7 +102,9 @@ define( function() {
 		 */
 		update: function( current, total, testability ) {
 			var testabilityLang = this.lang.testability,
-				testabilityLabel = testabilityLang[ testability !== undefined ? testability : 1 ];
+			testabilityMap = {"0": "notice", "0.5": "warning", "1": "error"},
+			testabilityLabel = testabilityLang[ testability !== undefined ? testability : 1 ],
+			testabilityClassLabel = testabilityMap[ testability !== undefined ? testability : 1 ];
 
 			this.parts.counter.setText( this.templates.counterText.output( {
 				current: current + 1,
@@ -110,11 +112,11 @@ define( function() {
 				testability: testabilityLabel
 			} ) );
 
-			for ( var t in testabilityLang ) {
-				this.parts.wrapper.removeClass( 'cke_a11yc_testability_' + testabilityLang[ t ] );
+			for ( var t in testabilityMap ) {
+				this.parts.wrapper.removeClass( 'cke_a11yc_testability_' + testabilityMap[ t ] );
 			}
 
-			this.parts.wrapper.addClass( 'cke_a11yc_testability_' + testabilityLabel );
+			this.parts.wrapper.addClass( 'cke_a11yc_testability_' + testabilityClassLabel );
 		},
 
 		/**
